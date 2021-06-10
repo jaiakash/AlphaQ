@@ -1,14 +1,32 @@
 #!/bin/bash
 
 #function to create users
-function genUser(){
-    mkdir $1
+function genUser{
     for i in {01..30}
     do
         sudo adduser $1_$i
-        cd ./$1
-        mkdir $1_$i
-        cd ..
+        #adduser automatically creates home directory
+        #unlike useradd
+
+        #Adding to group
+        if [$i -gl 11]
+        then
+            sudo adduser $1_$i secondyr
+        elif [$i -gl 21]
+        then
+            sudo adduser $1_$i thirdyr
+        elif [$i -gl 31]
+        then
+            sudo adduser $1_$i fourthyr
+        fi
+    done
+}
+
+#function to copy schedule file to each user's directory
+function schedule{
+    for i in {01..30}
+    do
+        cp future.txt /home/$1_$i/schedule.txt
     done
 }
 
@@ -24,7 +42,12 @@ genUser sysad
 genUser appdev
 genUser webdev
 
-#Creating Home directory
-
+#adding users to group
+# Done in genUser fucntion
+sudo adduser jay_jay head
 
 #Shedule
+cp future.txt /home/jay_jay/schedule.txt
+schedule sysad
+schedule appdev
+schedule webdev
