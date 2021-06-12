@@ -19,23 +19,22 @@ function schedule{
 }
 
 #function to copy schedule file to each user's directory
-# function permit{
-#     for i in {01..30}
-#     do
-
-#         #Adding to group
-#         if [ $i -le 11 ]
-#         then
-#             sudo adduser $1_$i secondyr
-#         elif [ $i -le 21 ]
-#         then
-#             sudo adduser $1_$i thirdyr
-#         elif [ $i -le 31 ]
-#         then
-#             sudo adduser $1_$i fourthyr
-#         fi
-#     done
-# }
+function permit{
+    for i in {01..30}
+    do
+        #Adding to group
+        if [ $i -le 11 ]
+        then
+            sudo adduser $1_$i secondyr
+        elif [ $i -le 21 ]
+        then
+            sudo adduser $1_$i thirdyr
+        elif [ $i -le 31 ]
+        then
+            sudo adduser $1_$i fourthyr
+        fi
+    done
+}
 
 #Creating User Group
 
