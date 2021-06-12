@@ -3,7 +3,7 @@
 date1=$1
 date2=$2
 
-#If no parameter is passed then print all absentees
+#If no parameters are passed then print all absentees
 if [[ "$date1" == "" ]]
 then
     date1="2019-09-27"
