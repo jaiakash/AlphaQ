@@ -2,13 +2,11 @@
 
 #./attendance.sh > ut.txt
 
-date="2019-12-25"
-string="sysAd_21 -"
-final="$string $date"
-found=$(strings attendance.log | grep "$final")
-if [[ $found != "" ]]
+
+
+date1=$1
+date2="2019-11-27"
+if [[ "$date1" == "" ]]
 then
-    echo "found"
-else
-    echo "not found"
+    echo Hi
 fi
