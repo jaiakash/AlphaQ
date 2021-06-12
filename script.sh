@@ -14,7 +14,11 @@ function genUser{
 function schedule{
     for i in {01..30}
     do
-        cp future.txt /home/$1_$i/schedule.txt
+        #dt="2021-07-14"
+        dt=$( date +%F )
+        #using strings and grep to get th schedule of current day
+        strings future.txt | grep  $dt | tee ./sdl.txt
+        cp sdl.txt /home/$1_$i/schedule.txt
     done
 }
 

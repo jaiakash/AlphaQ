@@ -1,6 +1,5 @@
 #!/bin/bash
 
-if [ $1 -le 11 ]
-then
-    echo 11
-fi
+dt=$( date +%F )
+#dt="2021-07-14"
+strings future.txt | grep  $dt | tee ./ot.txt
