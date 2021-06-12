@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#function to create users and add to domain gorup
+#function to create users and add to domain group
 function genUser{
     for i in {01..30}
     do

@@ -1,5 +1,14 @@
 #!/bin/bash
 
-dt=$( date +%F )
-#dt="2021-07-14"
-strings future.txt | grep  $dt | tee ./ot.txt
+#./attendance.sh > ut.txt
+
+date="2019-12-25"
+string="sysAd_21 -"
+final="$string $date"
+found=$(strings attendance.log | grep "$final")
+if [[ $found != "" ]]
+then
+    echo "found"
+else
+    echo "not found"
+fi
