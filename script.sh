@@ -16,7 +16,7 @@ function schedule{
     do
         #dt="2021-07-14"
         dt=$( date +%F )
-        #using strings and grep to get th schedule of current day
+        #using strings and grep to get the schedule of current day
         strings future.txt | grep  $dt | tee ./sdl.txt
         cp sdl.txt /home/$1_$i/schedule.txt
     done
@@ -26,16 +26,28 @@ function schedule{
 function permit{
     for i in {01..30}
     do
-        #Adding to group
         if [ $i -le 11 ]
         then
-            sudo adduser $1_$i secondyr
+            #Adding to group
+            sudo adduser $1_$i $2_secondyr
+
+            #Adding read and execute permisiion for head as well as seniors
+            setfacl -dm g:$2_thirdyr:r-x /home/$1_$i
+            setfacl -dm g:$2_fourthyr:r-x /home/$1_$i
+            setfacl -dm u:jay_jay:r-x /home/$1_$i
         elif [ $i -le 21 ]
         then
-            sudo adduser $1_$i thirdyr
+            sudo adduser $1_$i $2_thirdyr
+
+            #Adding read and execute permisiion for head as well as seniors
+            setfacl -dm g:$2_fourthyr:r-x /home/$1_$i
+            setfacl -dm u:jay_jay:r-x /home/$1_$i
         elif [ $i -le 31 ]
         then
-            sudo adduser $1_$i fourthyr
+            sudo adduser $1_$i $2_fourthyr
+
+            #Adding read and execute permisiion for head
+            setfacl -dm u:jay_jay:r-x /home/$1_$i
         fi
     done
 }
@@ -55,9 +67,15 @@ genUser webdev
 
 #Permission group
 newgrp head
-newgrp fourthyr
-newgrp thirdyr
-negrp secondyr
+newgrp sys_fourthyr
+newgrp web_fourthyr
+newgrp app_fourthyr
+newgrp sys_thirdyr
+newgrp web_thirdyr
+newgrp app_thirdyr
+newgrp sys_secondyr
+newgrp web_secondyr
+newgrp app_secondyr
 
 #Permission
 sudo adduser jay_jay head
@@ -65,8 +83,11 @@ permit sysad
 permit appdev
 permit webdev
 
-#Shedule
-cp future.txt /home/jay_jay/schedule.txt
-schedule sysad
-schedule appdev
-schedule webdev
+#Schedule
+dt=$( date +%F )
+strings future.txt | grep  $dt | tee ./sdl.txt
+cp sdl.txt /home/jay_jay/schedule.txt
+
+schedule sysad sys
+schedule appdev app
+schedule webdev web
